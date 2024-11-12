@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
-"""module for managing API Authentication
-"""
-from flask import request
+
+"""Module of Index views"""
+
 from typing import List, TypeVar
+from flask import request
 
 
 class Auth:
-    """Class template for all authentication system"""
+    '''Class method'''
+
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """returns False
-        path and excluded_paths to be used later"""
+        '''Public method for our class'''
         if path is None:
             return True
 
@@ -27,22 +28,19 @@ class Auth:
             elif excluded_path[-1] == "*":
                 if path.startswith(excluded_path[:-1]):
                     return False
+
         return True
 
     def authorization_header(self, request=None) -> str:
-        """returns None
-        request will be the Flask request object"""
+        '''Method to return none rqs'''
         if request is None:
             return None
-
         header = request.headers.get('Authorization')
-
         if header is None:
             return None
-
         return header
 
     def current_user(self, request=None) -> TypeVar('User'):
-        """returns None
-        request will be the Flask request object"""
+        '''Method for current user'''
+
         return None
