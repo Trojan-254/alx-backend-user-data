@@ -4,8 +4,6 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from sqlalchemy.orm.exc import NoResultFound
-from sqlalchemy.exc import InvalidRequestError
 from uuid import uuid4
 from user import Base, User
 
@@ -42,22 +40,7 @@ class DB:
         self._session.commit()
         return new_user
 
-    def find_user_by(self, **kwargs):
-        """takes in arbitrary keyword args
-        returns the first row found in users"""
-        try:
-            query = self._session.query(User)
-            for key, value in kwargs.items():
-                if not hasattr(User, key):
-                    raise InvalidRequestError(f"Invalid argument: {key}")
-                query = query.filter(getattr(User, key) == value)
-
-            user = query.first()
-            if user is None:
-                raise NoResultFound("No user found!")
-
-            return user
-        except InvalidRequestError as e:
-            raise e
-        except NoResultFound:
-            raise NoResultFound("No user found!")
+    def find_user_by(**kwargs):
+        """takes in arbitrary keyword arguments 
+        returns the first row found in the users table"""
+        
