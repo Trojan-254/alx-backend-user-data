@@ -1,19 +1,20 @@
-#!/usr/bin/python3
-'''model for sql alchemy'''
-import sqlalchemy
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String
+#!/usr/bin/env python3
+'''sql alchemy model'''
 
+
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
 
 class User(Base):
-    '''handles the user model'''
+    '''class forsql alchemy'''
+
     __tablename__ = 'users'
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    email = Column(String(250), nullable=False, unique=True)
+    id = Column(Integer, primary_key=True)
+    email = Column(String(250), nullable=False)
     hashed_password = Column(String(250), nullable=False)
     session_id = Column(String(250), nullable=True)
     reset_token = Column(String(250), nullable=True)
